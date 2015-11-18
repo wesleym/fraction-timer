@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<h1 id="fraction"></h1>
+
+<progress id="progress" max="1"></progress>
+
+<div id="time"></div>
+
+<button onclick="requestAnimationFrame(tickDown)" type="button">Start!</button>
+
+<script>
+var totalTime = 1800000;
+// var totalTime = 30000
+var maxDenominator = 65536;
+var currentDenominator = maxDenominator;
+
+function tickDown(time) {
+  while (1 / currentDenominator < time / totalTime) {
+    currentDenominator--;
+  }
+  currentDenominator++;
+  document.querySelector('#fraction').innerText = '1 / ' + currentDenominator
+  var fraction = time / totalTime - 1 / currentDenominator
+  var interval = 1 / (currentDenominator - 1) - 1 / currentDenominator
+  document.querySelector('#progress').value = fraction / interval
+  var currTime = fraction * totalTime
+  var intervalTime = interval * totalTime
+  document.querySelector('#time').innerText = (currTime / 1000).toFixed(4) + ' / ' + (intervalTime / 1000).toFixed(4)
+  if (time <= totalTime / 2) {
+    requestAnimationFrame(tickDown);
+  } else {
+    requestAnimationFrame(tickUp);
+  }
+}
+
+function tickUp(time) {
+  while (1 - (1 / currentDenominator) < time / totalTime) {
+    currentDenominator++;
+    if (currentDenominator > maxDenominator) {
+      break;
+    }
+  }
+  currentDenominator--;
+  document.querySelector('#fraction').innerText = '1 / ' + currentDenominator
+  var fraction = time / totalTime - (1 - 1 / currentDenominator)
+  var interval =  1 / (currentDenominator) - 1 / (currentDenominator + 1)
+  document.querySelector('#progress').value = fraction / interval
+  var currTime = fraction * totalTime
+  var intervalTime = interval * totalTime
+  document.querySelector('#time').innerText = (currTime / 1000).toFixed(4) + ' / ' + (intervalTime / 1000).toFixed(4)
+  if (time <= totalTime) {
+    requestAnimationFrame(tickUp);
+  }
+}
+</script>
