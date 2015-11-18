@@ -19,7 +19,7 @@ function tickDown(time) {
     currentDenominator--;
   }
   currentDenominator++;
-  document.querySelector('#fraction').innerText = '1 / ' + currentDenominator
+  document.querySelector('#denominator').innerText = currentDenominator
   var fraction = time / totalTime - 1 / currentDenominator
   var interval = 1 / (currentDenominator - 1) - 1 / currentDenominator
   document.querySelector('#progress').value = fraction / interval
@@ -42,7 +42,7 @@ function tickUp(time) {
     }
   }
   currentDenominator--;
-  document.querySelector('#fraction').innerText = '1 / ' + currentDenominator
+  document.querySelector('#denominator').innerText = currentDenominator
   var fraction = time / totalTime - (1 - 1 / currentDenominator)
   var interval =  1 / (currentDenominator) - 1 / (currentDenominator + 1)
   document.querySelector('#progress').value = fraction / interval

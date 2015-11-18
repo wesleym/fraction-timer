@@ -7,6 +7,11 @@ progress {
   width: 100%;
 }
 
-#fraction {
+.fraction {
   font-size: 4em;
+  display: inline-block;
+}
+
+#denominator {
+  border-top: solid;
 }
