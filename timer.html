@@ -10,19 +10,30 @@
 
 <input id=total-time type=number value=1800000>
 
-<button onclick="start()" type="button">Start!</button>
+<button type="button" onclick="start()">Start!</button>
+<button type=button onclick="startTime += 60000">-1m</button>
+<button type=button onclick="startTime += 1000">-1s</button>
+<button type=button onclick="startTime -= 10000">+10s</button>
+<button type=button onclick="startTime -= 1000">+1s</button>
 
 <script>
 var totalTime;
 var maxDenominator = 65536;
 var currentDenominator = maxDenominator;
+var startTime;
 
 function start() {
   totalTime = document.querySelector('#total-time').value;
+  requestAnimationFrame(initAnimation);
+}
+
+function initAnimation(time) {
+  startTime = time;
   requestAnimationFrame(tickDown);
 }
 
 function tickDown(time) {
+  time -= startTime;
   while (1 / currentDenominator < time / totalTime) {
     currentDenominator--;
   }
@@ -42,6 +53,7 @@ function tickDown(time) {
 }
 
 function tickUp(time) {
+  time -= startTime;
   while (1 - (1 / currentDenominator) < time / totalTime) {
     currentDenominator++;
     if (currentDenominator > maxDenominator) {
@@ -56,7 +68,9 @@ function tickUp(time) {
   var currTime = fraction * totalTime
   var intervalTime = interval * totalTime
   document.querySelector('#time').innerText = (currTime / 1000).toFixed(4) + ' / ' + (intervalTime / 1000).toFixed(4)
-  if (time <= totalTime) {
+  if (time <= totalTime / 2) {
+    requestAnimationFrame(tickDown);
+  } else if (time <= totalTime) {
     requestAnimationFrame(tickUp);
   }
 }
