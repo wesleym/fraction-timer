@@ -8,13 +8,19 @@
 
 <div id="time"></div>
 
-<button onclick="requestAnimationFrame(tickDown)" type="button">Start!</button>
+<input id=total-time type=number value=1800000>
+
+<button onclick="start()" type="button">Start!</button>
 
 <script>
-var totalTime = 1800000;
-// var totalTime = 30000
+var totalTime;
 var maxDenominator = 65536;
 var currentDenominator = maxDenominator;
+
+function start() {
+  totalTime = document.querySelector('#total-time').value;
+  requestAnimationFrame(tickDown);
+}
 
 function tickDown(time) {
   while (1 / currentDenominator < time / totalTime) {
