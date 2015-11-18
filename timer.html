@@ -10,14 +10,16 @@
 
 <progress id="progress" max="1"></progress>
 
-<div id="time"></div>
+<div id="time">0.000 / 0.000</div>
 
-<input id=total-time type=number value=1800000>
+<label for=total-time>Duration (ms)</label> <input id=total-time type=number value=1800000>
 
-<button type="button" onclick="start()">Start!</button>
-<button type=button onclick="startTime += 60000">-1m</button>
-<button type=button onclick="startTime += 1000">-1s</button>
-<button type=button onclick="startTime -= 10000">+10s</button>
-<button type=button onclick="startTime -= 1000">+1s</button>
+<div>
+  <button type="button" onclick="start()">Start!</button>
+  <button type=button onclick="startTime += 60000">-1m</button>
+  <button type=button onclick="startTime += 1000">-1s</button>
+  <button type=button onclick="startTime -= 10000">+10s</button>
+  <button type=button onclick="startTime -= 1000">+1s</button>
+</div>
 
 <script src=timer.js></script>
